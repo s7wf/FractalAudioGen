@@ -9,6 +9,20 @@ namespace FractalAudioGen
         private readonly WaveOutEvent waveOut;
         private readonly FractalWaveProvider waveProvider;
 
+        private readonly IReadOnlyDictionary<int, string> supportedFrequencies = new Dictionary<int, string>
+        {
+            { 174, "Pain Relief" },
+            { 285, "Tissue Healing" },
+            { 396, "Fear Reduction" },
+            { 417, "Negative Energy" },
+            { 432, "Natural Harmony" },
+            { 528, "DNA Repair" },
+            { 639, "Love & Connection" },
+            { 741, "Detox & Immunity" },
+            { 852, "Intuition Boost" },
+            { 963, "Pineal Gland" },
+        };
+
         public Form1()
         {
             // Perform app init
@@ -20,8 +34,27 @@ namespace FractalAudioGen
             InitializeComponent();
 
             // Bind controls
-            cmbHealingFrequencies.SelectedIndex = 0;
+            cmbHealingFrequencies.DataSource = new BindingSource(supportedFrequencies, null);
+            cmbHealingFrequencies.DisplayMember = "Value";
+            cmbHealingFrequencies.ValueMember = "Key";
+            cmbHealingFrequencies.FormattingEnabled = true;
+            // Format list entries by listing both Hz and intent
+            cmbHealingFrequencies.Format += (_, args) =>
+            {
+                var listItem = (KeyValuePair<int, string>)args.ListItem!;
+                args.Value = $"{listItem.Key} Hz - {listItem.Value}";
+            };
+
+            // cmbHealingFrequencies.FormattingEnabled = true;
+            // cmbHealingFrequencies.FormatString = "{0} Hz - {1}";
+
+            // Set our default to DNA Repair
+            cmbHealingFrequencies.SelectedIndex = 5;
+
             cmbWaveType.DataSource = Enum.GetValues<FractalWaveType>();
+
+            // Stop is disabled by default, nothing is playing yet
+            btnStop.Enabled = false;
         }
 
         private void BtnPlay_Click(object sender, EventArgs e)
@@ -29,6 +62,8 @@ namespace FractalAudioGen
             if (waveOut.PlaybackState != PlaybackState.Playing)
             {
                 waveOut.Play();
+                btnPlay.Enabled = false;
+                btnStop.Enabled = true;
             }
         }
 
@@ -37,24 +72,24 @@ namespace FractalAudioGen
             if (waveOut.PlaybackState == PlaybackState.Playing)
             {
                 waveOut.Stop();
+                btnPlay.Enabled = true;
+                btnStop.Enabled = false;
             }
         }
 
         private void CmbHealingFrequencies_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbHealingFrequencies.SelectedItem is string selection)
-            {
-                UpdateFrequency(selection);
-            }
+            // When the control is first initialized, bindings are not set up yet - allow early term
+            if (cmbHealingFrequencies.SelectedValue is not int selectedFrequency)
+                return;
+
+            waveProvider.Frequency = selectedFrequency;
         }
 
         private void TrackBinauralOffset_Scroll(object sender, EventArgs e)
         {
-            if (trackBinauralOffset != null && lblBinauralOffset != null)
-            {
-                waveProvider.BinauralOffset = trackBinauralOffset.Value;
-                lblBinauralOffset.Text = $"Binaural Offset: {trackBinauralOffset.Value} Hz";
-            }
+            waveProvider.BinauralOffset = trackBinauralOffset.Value;
+            lblBinauralOffset.Text = $"Binaural Offset: {trackBinauralOffset.Value} Hz";
         }
 
         private void CmbWaveType_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,48 +97,6 @@ namespace FractalAudioGen
             if (cmbWaveType.SelectedItem is FractalWaveType waveType)
             {
                 waveProvider.WaveType = waveType;
-            }
-        }
-
-        private void UpdateFrequency(string selection)
-        {
-            if (string.IsNullOrEmpty(selection)) return;
-
-            switch (selection)
-            {
-                case "174 Hz - Pain Relief":
-                    waveProvider.Frequency = 174;
-                    break;
-                case "285 Hz - Tissue Healing":
-                    waveProvider.Frequency = 285;
-                    break;
-                case "396 Hz - Fear Reduction":
-                    waveProvider.Frequency = 396;
-                    break;
-                case "417 Hz - Negative Energy":
-                    waveProvider.Frequency = 417;
-                    break;
-                case "432 Hz - Natural Harmony":
-                    waveProvider.Frequency = 432;
-                    break;
-                case "528 Hz - DNA Repair":
-                    waveProvider.Frequency = 528;
-                    break;
-                case "639 Hz - Love & Connection":
-                    waveProvider.Frequency = 639;
-                    break;
-                case "741 Hz - Detox & Immunity":
-                    waveProvider.Frequency = 741;
-                    break;
-                case "852 Hz - Intuition Boost":
-                    waveProvider.Frequency = 852;
-                    break;
-                case "963 Hz - Pineal Gland":
-                    waveProvider.Frequency = 963;
-                    break;
-                default:
-                    waveProvider.Frequency = 528; // Default to 528 Hz
-                    break;
             }
         }
     }
