@@ -12,114 +12,121 @@
         private System.Windows.Forms.TrackBar trackBinauralOffset;
         private System.Windows.Forms.ComboBox cmbWaveType;
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            this.btnPlay = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.lblFrequency = new System.Windows.Forms.Label();
-            this.cmbHealingFrequencies = new System.Windows.Forms.ComboBox();
-            this.lblBinauralOffset = new System.Windows.Forms.Label();
-            this.trackBinauralOffset = new System.Windows.Forms.TrackBar();
-            this.cmbWaveType = new System.Windows.Forms.ComboBox();
+            btnPlay = new System.Windows.Forms.Button();
 
-            this.SuspendLayout();
 
-            // 
-            // Form Properties
-            // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 300); // Adjust form size
-            this.Text = "Healing Frequency Generator";
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
 
+            btnStop = new System.Windows.Forms.Button();
+            lblFrequency = new System.Windows.Forms.Label();
+            cmbHealingFrequencies = new System.Windows.Forms.ComboBox();
+            lblBinauralOffset = new System.Windows.Forms.Label();
+            trackBinauralOffset = new System.Windows.Forms.TrackBar();
+            cmbWaveType = new System.Windows.Forms.ComboBox();
+            waveType = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)trackBinauralOffset).BeginInit();
+            SuspendLayout();
             // 
             // btnPlay
             // 
-            this.btnPlay.Text = "Play";
-            this.btnPlay.Location = new System.Drawing.Point(20, 20);
-            this.btnPlay.Size = new System.Drawing.Size(80, 30);
-            this.btnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
-            this.Controls.Add(this.btnPlay);
-
+            btnPlay.Location = new System.Drawing.Point(20, 20);
+            btnPlay.Name = "btnPlay";
+            btnPlay.Size = new System.Drawing.Size(80, 30);
+            btnPlay.TabIndex = 0;
+            btnPlay.Text = "Play";
+            btnPlay.Click += BtnPlay_Click;
             // 
             // btnStop
             // 
-            this.btnStop.Text = "Stop";
-            this.btnStop.Location = new System.Drawing.Point(110, 20);
-            this.btnStop.Size = new System.Drawing.Size(80, 30);
-            this.btnStop.Click += new System.EventHandler(this.BtnStop_Click);
-            this.Controls.Add(this.btnStop);
-
+            btnStop.Location = new System.Drawing.Point(110, 20);
+            btnStop.Name = "btnStop";
+            btnStop.Size = new System.Drawing.Size(80, 30);
+            btnStop.TabIndex = 1;
+            btnStop.Text = "Stop";
+            btnStop.Click += BtnStop_Click;
             // 
             // lblFrequency
             // 
-            this.lblFrequency.Text = "Frequency:";
-            this.lblFrequency.Location = new System.Drawing.Point(20, 70);
-            this.lblFrequency.AutoSize = true;
-            this.Controls.Add(this.lblFrequency);
-
+            lblFrequency.AutoSize = true;
+            lblFrequency.Location = new System.Drawing.Point(20, 70);
+            lblFrequency.Name = "lblFrequency";
+            lblFrequency.Size = new System.Drawing.Size(79, 20);
+            lblFrequency.TabIndex = 2;
+            lblFrequency.Text = "Frequency:";
             // 
             // cmbHealingFrequencies
             // 
-            this.cmbHealingFrequencies.Location = new System.Drawing.Point(120, 65);
-            this.cmbHealingFrequencies.Size = new System.Drawing.Size(200, 25);
-            this.cmbHealingFrequencies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbHealingFrequencies.Items.AddRange(new string[] {
-                "174 Hz - Pain Relief",
-                "285 Hz - Tissue Healing",
-                "396 Hz - Fear Reduction",
-                "417 Hz - Negative Energy",
-                "432 Hz - Natural Harmony",
-                "528 Hz - DNA Repair",
-                "639 Hz - Love & Connection",
-                "741 Hz - Detox & Immunity",
-                "852 Hz - Intuition Boost",
-                "963 Hz - Pineal Gland"
-            });
-            this.cmbHealingFrequencies.SelectedIndex = 5; // Default to 528 Hz
-            this.cmbHealingFrequencies.SelectedIndexChanged += new System.EventHandler(this.CmbHealingFrequencies_SelectedIndexChanged);
-            this.Controls.Add(this.cmbHealingFrequencies);
-
+            cmbHealingFrequencies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbHealingFrequencies.Items.AddRange(new object[] { "174 Hz - Pain Relief", "285 Hz - Tissue Healing", "396 Hz - Fear Reduction", "417 Hz - Negative Energy", "432 Hz - Natural Harmony", "528 Hz - DNA Repair", "639 Hz - Love & Connection", "741 Hz - Detox & Immunity", "852 Hz - Intuition Boost", "963 Hz - Pineal Gland" });
+            cmbHealingFrequencies.Location = new System.Drawing.Point(120, 65);
+            cmbHealingFrequencies.Name = "cmbHealingFrequencies";
+            cmbHealingFrequencies.Size = new System.Drawing.Size(200, 28);
+            cmbHealingFrequencies.TabIndex = 3;
+            cmbHealingFrequencies.SelectedIndexChanged += CmbHealingFrequencies_SelectedIndexChanged;
             // 
             // lblBinauralOffset
             // 
-            this.lblBinauralOffset.Text = "Binaural Offset: 0 Hz";
-            this.lblBinauralOffset.Location = new System.Drawing.Point(20, 120);
-            this.lblBinauralOffset.AutoSize = true;
-            this.Controls.Add(this.lblBinauralOffset);
-
+            lblBinauralOffset.AutoSize = true;
+            lblBinauralOffset.Location = new System.Drawing.Point(20, 120);
+            lblBinauralOffset.Name = "lblBinauralOffset";
+            lblBinauralOffset.Size = new System.Drawing.Size(144, 20);
+            lblBinauralOffset.TabIndex = 4;
+            lblBinauralOffset.Text = "Binaural Offset: 0 Hz";
             // 
             // trackBinauralOffset
             // 
-            this.trackBinauralOffset.Location = new System.Drawing.Point(20, 140);
-            this.trackBinauralOffset.Size = new System.Drawing.Size(300, 40);
-            this.trackBinauralOffset.Minimum = 0;
-            this.trackBinauralOffset.Maximum = 20;
-            this.trackBinauralOffset.TickFrequency = 1;
-            this.trackBinauralOffset.ValueChanged += new System.EventHandler(this.TrackBinauralOffset_Scroll);
-            this.Controls.Add(this.trackBinauralOffset);
-
+            trackBinauralOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right));
+            trackBinauralOffset.Location = new System.Drawing.Point(20, 140);
+            trackBinauralOffset.Maximum = 20;
+            trackBinauralOffset.Name = "trackBinauralOffset";
+            trackBinauralOffset.Size = new System.Drawing.Size(339, 56);
+            trackBinauralOffset.TabIndex = 5;
+            trackBinauralOffset.ValueChanged += TrackBinauralOffset_Scroll;
             // 
             // cmbWaveType
             // 
-            this.cmbWaveType.Location = new System.Drawing.Point(20, 190);
-            this.cmbWaveType.Size = new System.Drawing.Size(200, 25);
-            this.cmbWaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWaveType.Items.AddRange(new string[] {
-                "Sine",
-                "Square",
-                "Triangle",
-                "Sawtooth"
-            });
-            this.cmbWaveType.SelectedIndex = 0; // Default to Sine
-            this.cmbWaveType.SelectedIndexChanged += new System.EventHandler(this.CmbWaveType_SelectedIndexChanged);
-            this.Controls.Add(this.cmbWaveType);
-
+            cmbWaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbWaveType.Location = new System.Drawing.Point(121, 201);
+            cmbWaveType.Name = "cmbWaveType";
+            cmbWaveType.Size = new System.Drawing.Size(200, 28);
+            cmbWaveType.TabIndex = 6;
+            cmbWaveType.SelectedIndexChanged += CmbWaveType_SelectedIndexChanged;
             // 
-            // Finalize Form
+            // waveType
             // 
-            this.ResumeLayout(false);
+            waveType.Location = new System.Drawing.Point(17, 198);
+            waveType.Name = "waveType";
+            waveType.Size = new System.Drawing.Size(98, 32);
+            waveType.TabIndex = 7;
+            waveType.Text = "Wave Type:";
+            waveType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(371, 257);
+            Controls.Add(waveType);
+            Controls.Add(btnPlay);
+            Controls.Add(btnStop);
+            Controls.Add(lblFrequency);
+            Controls.Add(cmbHealingFrequencies);
+            Controls.Add(lblBinauralOffset);
+            Controls.Add(trackBinauralOffset);
+            Controls.Add(cmbWaveType);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Text = "Healing Frequency Generator";
+            ((System.ComponentModel.ISupportInitialize)trackBinauralOffset).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
+
+        private System.Windows.Forms.Label waveType;
     }
 }

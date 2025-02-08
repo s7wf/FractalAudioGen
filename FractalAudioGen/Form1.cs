@@ -6,24 +6,27 @@ namespace FractalAudioGen
 {
     public partial class Form1 : Form
     {
-        private WaveOutEvent waveOut;
-        private FractalWaveProvider waveProvider;
+        private readonly WaveOutEvent waveOut;
+        private readonly FractalWaveProvider waveProvider;
 
         public Form1()
         {
-            InitializeComponent();
+            // Perform app init
             waveProvider = new FractalWaveProvider();
             waveOut = new WaveOutEvent();
             waveOut.Init(waveProvider);
 
-            // Prevent null reference issues
+            // Start UI
+            InitializeComponent();
+
+            // Bind controls
             cmbHealingFrequencies.SelectedIndex = 0;
-            cmbWaveType.SelectedIndex = 0;
+            cmbWaveType.DataSource = Enum.GetValues<FractalWaveType>();
         }
 
         private void BtnPlay_Click(object sender, EventArgs e)
         {
-            if (waveOut != null && waveOut.PlaybackState != PlaybackState.Playing)
+            if (waveOut.PlaybackState != PlaybackState.Playing)
             {
                 waveOut.Play();
             }
@@ -31,7 +34,7 @@ namespace FractalAudioGen
 
         private void BtnStop_Click(object sender, EventArgs e)
         {
-            if (waveOut != null && waveOut.PlaybackState == PlaybackState.Playing)
+            if (waveOut.PlaybackState == PlaybackState.Playing)
             {
                 waveOut.Stop();
             }
@@ -56,7 +59,7 @@ namespace FractalAudioGen
 
         private void CmbWaveType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbWaveType.SelectedItem is string waveType)
+            if (cmbWaveType.SelectedItem is FractalWaveType waveType)
             {
                 waveProvider.WaveType = waveType;
             }
